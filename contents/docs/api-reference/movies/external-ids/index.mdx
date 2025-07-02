@@ -1,0 +1,60 @@
+---
+title: External IDs
+description: Get the external IDs for a movie, supported external IDs are IMDB, Facebook, Instagram, Twitter, and Wikidata.
+---
+ 
+```typescript
+tmdb.movies.external_ids(params: MovieExternalIDsParams): Promise<MovieExternalIDs>; 
+```
+
+## Parameters
+
+| Name      | Type   | Required | Description                                      |
+|-----------|--------|----------|--------------------------------------------------|
+| movie_id  | number         | ✅      | The ID of the movie.                             |
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-external-ids](https://developer.themoviedb.org/reference/movie-external-ids)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.external_ids({ movie_id: 550 });
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieExternalIDs = {
+	id: number;
+	imdb_id: string | null;
+	facebook_id: string | null;
+	twitter_id: string | null;
+	instagram_id: string | null;
+};
+```
+
+### Related Types
+
+```typescript
+export type MovieExternalIDsParams = {
+	movie_id: number;
+};
+```
+
+## Example Response
+
+```json
+{
+  "id": 550,
+  "imdb_id": "tt0137523",
+  "wikidata_id": "Q190050",
+  "facebook_id": "FightClub",
+  "instagram_id": null,
+  "twitter_id": null
+}
+```

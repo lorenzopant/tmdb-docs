@@ -1,0 +1,72 @@
+---
+title: Keywords
+description: Get the keywords that have been added to a movie.
+---
+ 
+```typescript
+tmdb.movies.keywords(params: MovieKeywordsParams): Promise<MovieKeywords>; 
+```
+
+## Parameters
+
+| Name      | Type   | Required | Description                                      |
+|-----------|--------|----------|--------------------------------------------------|
+| movie_id  | number         | ✅      | The ID of the movie.                             |
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-keywords](https://developer.themoviedb.org/reference/movie-keywords)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.keywords({ movie_id: 550 });
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieKeywords = {
+	id: number;
+	keywords: Keyword[];
+};
+```
+
+### Related Types
+
+```typescript
+export type Keyword = {
+	id: number;
+	name: string;
+};
+
+export type MovieKeywordsParams = {
+	movie_id: number;
+};
+```
+
+## Example Response
+
+```json
+{
+  "id": 550,
+  "keywords": [
+    {
+      "id": 851,
+      "name": "dual identity"
+    },
+    {
+      "id": 3927,
+      "name": "rage and hate"
+    },
+    {
+      "id": 818,
+      "name": "based on novel or book"
+    },
+    ...
+  ]
+}
+```

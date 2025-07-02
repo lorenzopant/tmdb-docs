@@ -1,0 +1,94 @@
+---
+title: Videos
+description: Get available videos for a movie.
+---
+ 
+```typescript
+tmdb.movies.videos(params: MovieVideosParams): Promise<MovieVideos>; 
+```
+
+## Parameters
+
+| Name      | Type   | Required | Description                                      |
+|-----------|--------|----------|--------------------------------------------------|
+| movie_id  | number         | ✅      | The ID of the movie.                             |
+| language   | LanguageISO6391 | ❌       | Language for the response |
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-videos](https://developer.themoviedb.org/reference/movie-videos)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.videos({ movie_id: 550 });
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieVideos = {
+	id: number;
+	results: VideoItem[];
+};
+
+export type VideoItem = {
+	iso_649_1: string;
+	iso_3166_1: string;
+	name: string;
+	key: string;
+	site: string;
+	size: number;
+	type: string;
+	official: boolean;
+	published_at: string;
+	id: string;
+};
+```
+
+### Related Types
+
+```typescript
+export type MovieVideosParams = {
+	movie_id: number;
+	language?: LanguageISO6391;
+};
+```
+
+## Example Response
+
+```json
+{
+  "id": 550,
+  "results": [
+    {
+      "iso_639_1": "en",
+      "iso_3166_1": "US",
+      "name": "Yeah... no wonder this movie never won an Oscar",
+      "key": "V0Fqdb-smqo",
+      "site": "YouTube",
+      "size": 1080,
+      "type": "Featurette",
+      "official": false,
+      "published_at": "2025-02-14T14:25:16.000Z",
+      "id": "67c90f7a3dd7da394f24957b"
+    },
+    {
+      "iso_639_1": "en",
+      "iso_3166_1": "US",
+      "name": "20th Anniversary Trailer",
+      "key": "dfeUzm6KF4g",
+      "site": "YouTube",
+      "size": 1080,
+      "type": "Trailer",
+      "official": true,
+      "published_at": "2019-10-15T18:59:47.000Z",
+      "id": "64fb16fbdb4ed610343d72c3"
+    },
+    ...
+  ]
+}
+```

@@ -1,0 +1,69 @@
+---
+title: Images
+description: Generate TMDB image URLs for posters, backdrops, profiles, logos, and stills.
+---
+
+
+The `ImageAPI` class allows you to generate fully qualified TMDB image URLs from relative image paths using typed convenience methods.
+These URLs respect your configuration preferences, such as whether to use HTTPS and which image size to use by default, as long as you don't override them.
+
+---
+
+## Available Methods
+
+| Method      | Description |
+|-------------|-------------|
+| `poster(path, size?)`   | Build a full image URL for a movie poster |
+| `backdrop(path, size?)` | Build a full image URL for a movie backdrop |
+| `logo(path, size?)`     | Build a full image URL for a production company or network logo |
+| `profile(path, size?)`  | Build a full image URL for a person’s profile photo |
+| `still(path, size?)`    | Build a full image URL for a video still or frame |
+
+All methods return a string containing the full image URL.
+
+---
+
+## Usage Example
+
+```ts
+const url = tmdb.images.poster("/xGuOF1T3WmPsAcQEQJfnG7Ud9f8.jpg");
+console.log(url); // https://image.tmdb.org/t/p/w500/xGuOF1T3WmPsAcQEQJfnG7Ud9f8.jpg
+
+const url = tmdb.images.poster("/xGuOF1T3WmPsAcQEQJfnG7Ud9f8.jpg", "original");
+console.log(url); // https://image.tmdb.org/t/p/original/xGuOF1T3WmPsAcQEQJfnG7Ud9f8.jpg
+```
+
+---
+
+## Configuration Options
+
+As described in the [Configuration](/docs/configuration) section, you can optionally define default images sizes to use; or whether to use secure-urls or not.
+
+```ts
+type ImagesConfig = {
+  secure_images_url?: boolean; // default: true
+  default_image_sizes?: {
+    posters?: PosterSize;
+    backdrops?: BackdropSize;
+    logos?: LogoSize;
+    profiles?: ProfileSize;
+    still?: StillSize;
+  };
+}
+```
+
+This allows you to:
+- Use `http://` instead of `https://` (not recommended)
+- Set default sizes for each image type (overridable per call)
+
+---
+
+## Notes
+
+- If no size is passed to a method, the corresponding default size from config is used.
+- If no config is provided, the following defaults are used:
+  - Posters: `w500`
+  - Backdrops: `w780`
+  - Logos: `w185`
+  - Profiles: `w185`
+  - Stills: `w300`

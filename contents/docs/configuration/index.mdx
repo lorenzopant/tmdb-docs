@@ -1,0 +1,130 @@
+---
+title: Configuration
+description: This section provides an overview of optional configuration parameters that can be passed to the TMDB object.
+---
+
+## Passing Configuration Options
+
+You can pass global configuration options to the `TMDB` client when you create it. These options apply to all requests unless overridden on a per-request basis.
+
+
+### Available Options
+
+| Name     | Type                  | Description                                                                 |
+|----------|-----------------------|-----------------------------------------------------------------------------|
+| language | `LanguageISO6391`     | Language code used to localize translated fields                            |
+| region   | `CountryISO3166_1`    | Country code used to localize release dates, certifications, and providers  |
+| images   | `ImagesConfig`        | Provides default params when fetching images from TMDB                      |
+
+
+### Usage Example
+
+```ts
+import { TMDB } from "@lorenzopant/tmdb";
+
+const tmdb = new TMDB("your_access_token", {
+  language: "it",
+  region: "IT",
+});
+```
+
+## Images
+
+We provide useful methdos for fetching TMDB images. They are all listed in the [API Reference](/docs/api-reference/images) images section.
+As for the configuration, you can provide default image sizes for each type of image, as well as wheter to use 
+a secure url or not. Default values are listed below:
+
+### Images Options
+
+| Name                | Type     | Description                                                  |
+|---------------------|----------|--------------------------------------------------------------|
+| secure_images_url   | `boolean`| Whether to use `https` (secure) or `http` (non-secure) URLs. Defaults to true.  |
+| default_image_sizes | `ImageSizes`   | Object defining default image sizes for each image category   |
+
+### Default Image Sizes
+
+| Key       | Type                                                                 | Description                     | Default Value |
+|-----------|----------------------------------------------------------------------|---------------------------------| ------------- |
+| posters   | `"w92"` \| `"w154"` \| `"w185"` \| `"w342"` \| `"w500"` \| `"w780"` \| `"original"` | Default size for posters | `w500` |
+| backdrops | `"w300"` \| `"w780"` \| `"w1280"` \| `"original"`                    | Default size for backdrops     | `w780` |
+| logos     | `"w45"` \| `"w92"` \| `"w154"` \| `"w185"` \| `"w300"` \| `"w500"` \| `"original"` | Default size for logos  | `w185` |
+| profiles  | `"w45"` \| `"w185"` \| `"h632"` \| `"original"`                      | Default size for profile images| `w185` |
+| still     | `"w92"` \| `"w185"` \| `"w300"` \| `"original"`                      | Default size for video stills  | `w300` |
+
+
+### Options Type
+
+```ts
+export type TMDBOptions = {
+  language?: LanguageISO6391;
+  region?: CountryISO3166_1;
+  images?: ImagesConfig;
+};
+
+export type ImagesConfig = {
+	secure_images_url?: boolean;
+	default_image_sizes?: Partial<DefaultImageSizesConfig>;
+};
+
+export type DefaultImageSizesConfig = {
+	posters?: PosterSize;
+	backdrops?: BackdropSize;
+	logos?: LogoSize;
+	profiles?: ProfileSize;
+	still?: StillSize;
+};
+```
+
+## Region
+
+A region is a country or market used to localize data. It affects:
+
+- Movie release dates
+- Certification ratings (e.g. PG-13, 18+)
+- Now playing / upcoming movies and other lists.
+- Streaming availability (watch providers)
+
+### How Regions Affect API Results
+
+| TMDB API Route          | What `region` does                                           |
+|-------------------------|--------------------------------------------------------------|
+| `/movie/now_playing`    | Filters movies released in that country                      |
+| `/watch/providers/movie`| Returns platforms available in that region                   |
+| `/search/movie`         | May prioritize release info from that region                 |
+| `/movie/{id}`           | Shows region-specific certifications                         |
+
+
+<Note title="Note">
+- If you don’t set a region, TMDB will default based on your IP or global availability.
+- Setting a region helps if you’re building region-specific apps (e.g. “What’s playing in Italy?”).
+</Note>
+
+<Note title="Reference">
+[https://developer.themoviedb.org/docs/region-support](https://developer.themoviedb.org/docs/region-support)
+</Note>
+
+---
+
+
+## Language
+
+The `language` parameter determines the language of the content returned by the TMDB API. It affects:
+
+- Translated titles and overviews
+- Genre and certification names
+- Region-specific content if paired with the `region` parameter
+
+TMDB supports ISO 639-1 language codes like `en`, `it`, `fr`, etc.
+
+This would return translated fields like:
+
+- `title`: "Inception" → "Inception" (if not localized)
+- `overview`: Localized summary if available
+
+<Note title="Note">
+If no translation is available for a specific field, TMDB will fall back to the original language (usually English).
+</Note>
+
+<Note title="Reference">
+[https://developer.themoviedb.org/docs/languages](https://developer.themoviedb.org/docs/languages)
+</Note>

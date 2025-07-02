@@ -1,41 +1,34 @@
 import { ModeToggle } from "@/components/theme-toggle";
 import { SheetClose } from "@/components/ui/sheet";
 import { page_routes } from "@/lib/routes-config";
-import { CommandIcon, GithubIcon } from "lucide-react";
+import { GithubIcon } from "lucide-react";
 import Link from "next/link";
-import AlgoliaSearch from "./algolia-search";
 import Anchor from "./anchor";
 import { SheetLeftbar } from "./leftbar";
 import { buttonVariants } from "./ui/button";
 
 export const NAVLINKS = [
     {
-        title: "Documentation",
+        title: "TMDB Wrapper Docs",
         href: `/docs${page_routes[0].href}`,
     },
-    {
-        title: "Blog",
-        href: "/blog",
-    },
-    {
-        title: "Examples",
-        href: "#",
-    },
-    {
-        title: "Guides",
-        href: "#",
-    },
-    {
-        title: "Community",
-        href: "https://github.com/nisabmohd/Aria-Docs/discussions",
-    },
+    // {
+    //     title: "Blog",
+    //     href: "/blog",
+    // },
+    // {
+    //     title: "Examples",
+    //     href: "#",
+    // },
+    // {
+    //     title: "Guides",
+    //     href: "#",
+    // },
+    // {
+    //     title: "Community",
+    //     href: "https://github.com/nisabmohd/Aria-Docs/discussions",
+    // },
 ];
-
-const algolia_props = {
-    appId: process.env.ALGOLIA_APP_ID!,
-    indexName: process.env.ALGOLIA_INDEX!,
-    apiKey: process.env.ALGOLIA_SEARCH_API_KEY!,
-};
 
 export function Navbar() {
     return (
@@ -54,11 +47,11 @@ export function Navbar() {
                 </div>
 
                 <div className="flex items-center sm:justify-normal justify-between sm:gap-3 ml-1 sm:w-fit w-[90%]">
-                    <AlgoliaSearch {...algolia_props} />
                     <div className="flex items-center justify-between sm:gap-2">
                         <div className="flex ml-4 sm:ml-0">
                             <Link
-                                href="https://github.com/nisabmohd/NexDocs"
+                                href="https://github.com/lorenzopant/tmdb"
+                                target="_blank"
                                 className={buttonVariants({
                                     variant: "ghost",
                                     size: "icon",
@@ -79,8 +72,7 @@ export function Navbar() {
 export function Logo() {
     return (
         <Link href="/" className="flex items-center gap-2.5">
-            <CommandIcon className="w-6 h-6 text-muted-foreground" strokeWidth={2} />
-            <h2 className="text-md font-bold font-code">@lorenzopant</h2>
+            <h2 className="text-md font-bold font-code">@lorenzopant/tmdb</h2>
         </Link>
     );
 }

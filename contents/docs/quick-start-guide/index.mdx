@@ -1,0 +1,99 @@
+---
+title: Quick Start Guide
+description: This section provides an overview of how to quickly get started using the TMDB wrapper.
+---
+
+<Note type="info">
+We assume you already have a valid api key for using the TMDB api. If not,
+Go to the TMDB portal and get your own api key. For more information follow the steps in the TMDB website 
+
+References:
+  - https://www.themoviedb.org/settings/api - Request API Key from your profile
+  - https://developer.themoviedb.org/docs/getting-started - Getting Started Guide
+</Note>
+
+### Install
+
+<Tabs defaultValue="npm" className="pb-1">
+  <TabsList>
+    <TabsTrigger value="npm">npm</TabsTrigger>
+    <TabsTrigger value="pnpm">pnpm</TabsTrigger>
+    <TabsTrigger value="yarn">yarn</TabsTrigger>
+    <TabsTrigger value="bun">bun</TabsTrigger>
+  </TabsList>
+  <TabsContent value="npm">
+    ```
+    npm install @lorenzopant/tmdb
+    ```
+  </TabsContent>
+  <TabsContent value="pnpm">
+    ```
+    pnpm add @lorenzopant/tmdb
+    ```
+  </TabsContent>
+  <TabsContent value="yarn">
+    ```
+    yarn add @lorenzopant/tmdb
+    ```
+  </TabsContent>
+  <TabsContent value="bun">
+    ```
+    bun install @lorenzopant/tmdb
+    ```
+  </TabsContent>
+</Tabs>
+
+### Create TMDB object
+
+```typescript:tmdb.ts
+export const tmdb = new TMDB("<your-tmdb-apikey>")
+```
+
+### Use TMDB methods
+
+Once you've initialized the `TMDB` client, you can start using the API methods. Here's how to search for a movie:
+
+```ts
+const results = await tmdb.search.movies({ query: "Inception" });
+console.log(results.results);
+```
+
+You’ll get a paginated response with a list of matching movies, including their titles, poster paths, IDs, and other metadata.
+
+#### Example Response
+
+```ts
+{
+  page: 1,
+  results: [
+    {
+      id: 27205,
+      title: "Inception",
+      original_title: "Inception",
+      release_date: "2010-07-15",
+      poster_path: "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+      overview: "A skilled thief is offered a chance to have his past crimes forgiven...",
+      vote_average: 8.4,
+      vote_count: 31000,
+      genre_ids: [28, 12, 878],
+      adult: false
+    },
+    ...
+  ],
+  total_pages: 1,
+  total_results: 1
+}
+```
+
+---
+
+### Learn More
+
+Explore additional methods like:
+
+- `movieLists.now_playing()`
+- `movieLists.top_rated()`
+- `movies.alternative_titles(id)`
+
+in the [Api Reference section](https://developer.themoviedb.org/docs).
+For the full reference, visit the [TMDB Developer Documentation](https://developer.themoviedb.org/docs) and check out each endpoint.

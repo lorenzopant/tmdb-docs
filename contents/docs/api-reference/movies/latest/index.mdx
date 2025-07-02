@@ -1,0 +1,95 @@
+---
+title: Latest
+description: Get the newest movie ID.
+---
+ 
+This is the most recent movie that has been added to TMDB. This is a live response will continuously change as new movies are added.
+
+```typescript
+tmdb.movies.latest(): Promise<MovieDetails>; 
+```
+
+## Parameters
+
+*No Parameters*
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-latest-id](https://developer.themoviedb.org/reference/movie-latest-id)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.credits({ movie_id: 550 });
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieDetails = {
+	adult: boolean;
+	backdrop_path: string | null;
+	belongs_to_collection: Collection | null;
+	budget: number;
+	genres: Genre[];
+	homepage: string | null;
+	id: number;
+	imdb_id: string | null;
+	origin_country: string[];
+	original_language: string;
+	original_title: string;
+	overview: string | null;
+	popularity: number;
+	poster_path: string | null;
+	production_companies: ProductionCompany[];
+	production_countries: ProductionCountry[];
+	release_date: string; // ISO format (YYYY-MM-DD)
+	revenue: number;
+	runtime: number | null; // Some movies have no runtime set
+	spoken_languages: SpokenLanguage[];
+	status: string;
+	tagline: string | null;
+	title: string;
+	video: boolean;
+	vote_average: number;
+	vote_count: number;
+};
+```
+
+## Example Response
+
+```json
+{
+  "adult": false,
+  "backdrop_path": null,
+  "belongs_to_collection": null,
+  "budget": 0,
+  "genres": [],
+  "homepage": "",
+  "id": 1505916,
+  "imdb_id": null,
+  "origin_country": [
+    "FR"
+  ],
+  "original_language": "fr",
+  "original_title": "Salve Regina",
+  "overview": "",
+  "popularity": 0,
+  "poster_path": null,
+  "production_companies": [],
+  "production_countries": [],
+  "release_date": "",
+  "revenue": 0,
+  "runtime": 0,
+  "spoken_languages": [],
+  "status": "Released",
+  "tagline": "",
+  "title": "Salve Regina",
+  "video": false,
+  "vote_average": 0,
+  "vote_count": 0
+}
+```

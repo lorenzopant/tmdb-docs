@@ -1,0 +1,97 @@
+---
+title: Similar
+description: Get the similar movies based on genres and keywords.
+---
+
+This method only looks for other items based on genres and plot keywords.
+As such, the results found here are not always going to be 💯. Use it with that in mind.
+
+```typescript
+tmdb.movies.similar(params: MovieSimilarParams): Promise<MovieSimilar>; 
+```
+
+## Parameters
+
+| Name      | Type   | Required | Description                                      |
+|-----------|--------|----------|--------------------------------------------------|
+| movie_id  | number         | ✅      | The ID of the movie.                             |
+| page   | number | ❌       | Page number of the results to return. Defaults to 1. |
+| language   | LanguageISO6391 | ❌       | Language for the response |
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-similar](https://developer.themoviedb.org/reference/movie-similar)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.similar({ movie_id: 550 });
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieSimilar = PaginatedResponse<MovieResultItem>;
+```
+
+### Related Types
+
+```typescript
+export type PaginatedResponse<T> = {
+	page: number;
+	total_pages: number;
+	total_results: number;
+	results: T[];
+};
+
+export type MovieResultItem = {
+	backdrop_path: string;
+	id: number;
+	title: string;
+	original_title: string;
+	overview: string;
+	poster_path: string;
+	media_type: string;
+	adult: boolean;
+	original_language: string;
+	genre_ids: number[];
+	popularity: number;
+	release_date: string;
+	video: boolean;
+	vote_average: number;
+	vote_count: number;
+};
+```
+
+## Example Response
+
+```json
+{
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/qykc21PjbISZCmpKedY76fojV1I.jpg",
+      "genre_ids": [
+        10749,
+        18
+      ],
+      "id": 1967,
+      "original_language": "en",
+      "original_title": "Ask the Dust",
+      "overview": "Mexican beauty Camilla hopes to rise above her station by marrying a wealthy American. That is complicated by meeting Arturo Bandini, a first-generation Italian hoping to land a writing career and a blue-eyed blonde on his arm.",
+      "popularity": 1.0323,
+      "poster_path": "/iuJZyJNiQxnmMBBqu40mF0a2nuv.jpg",
+      "release_date": "2006-02-02",
+      "title": "Ask the Dust",
+      "video": false,
+      "vote_average": 5.378,
+      "vote_count": 152
+    },
+    ...
+  ]
+}
+```

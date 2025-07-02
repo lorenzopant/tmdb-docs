@@ -1,0 +1,75 @@
+---
+title: Alternative Titles
+description: Get the alternative titles for a movie (e.g., Russian name, Indian names, etc.).
+---
+ 
+```typescript
+tmdb.movies.alternative_titles(params: MovieAlternativeTitlesParams): Promise<MovieAlternativeTitles>; 
+```
+
+## Parameters
+
+| Name      | Type   | Required | Description                                      |
+|-----------|--------|----------|--------------------------------------------------|
+| movie_id  | number         | ✅      | The ID of the movie.                             |
+| country   | CountryISO3166_1 | ❌       | Specify a ISO-3166-1 value to filter the results|
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-alternative-titles](https://developer.themoviedb.org/reference/movie-alternative-titles)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.alternative_titles({
+  movie_id: 603, // The Matrix
+  country: "US", // Optional
+});
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieAlternativeTitles = {
+	id: number;
+	titles: MovieAlternativeTitle[];
+};
+```
+
+### Other Types
+
+```typescript
+export type MovieAlternativeTitle = {
+	title: string;
+	iso_3166_1: string;
+	type: string;
+};
+
+export type MovieAlternativeTitlesParams = {
+	movie_id: number;
+	country?: CountryISO3166_1;
+};
+```
+
+## Example Response
+
+```json
+{
+  "id": 603,
+  "titles": [
+    {
+      "iso_3166_1": "US",
+      "title": "The Matrix",
+      "type": "Original"
+    },
+    {
+      "iso_3166_1": "RU",
+      "title": "Матрица",
+      "type": "Russian"
+    }
+  ]
+}
+```

@@ -1,0 +1,97 @@
+---
+title: Translations
+description: Get the translations for a movie.
+---
+
+Take a read through the [TMDB language documentation](https://developer.themoviedb.org/docs/languages) for more information about languages on TMDB.
+
+```typescript
+tmdb.movies.translations(params: MovieTranslationsParams): Promise<MovieTranslations>; 
+```
+
+## Parameters
+
+| Name      | Type   | Required | Description                                      |
+|-----------|--------|----------|--------------------------------------------------|
+| movie_id  | number         | ✅      | The ID of the movie.                             |
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-translations](https://developer.themoviedb.org/reference/movie-translations)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.translations({ movie_id: 550 });
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieTranslations = {
+	id: number;
+	translations: MovieTranslationResults[];
+};
+```
+
+### Related Types
+
+```typescript
+export type MovieTranslationResults = {
+	iso_3166_1: string;
+	iso_639_1: string;
+	name: string;
+	english_name: string;
+	data: {
+		homepage: string;
+		overview: string;
+		runtime: number;
+		tagline: string;
+		title: string;
+	};
+};
+
+export type MovieTranslationsParams = {
+	movie_id: number;
+};
+```
+
+## Example Response
+
+```json
+{
+  "id": 550,
+  "translations": [
+    {
+      "iso_3166_1": "US",
+      "iso_639_1": "en",
+      "name": "English",
+      "english_name": "English",
+      "data": {
+        "homepage": "http://www.foxmovies.com/movies/fight-club",
+        "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
+        "runtime": 139,
+        "tagline": "Mischief. Mayhem. Soap.",
+        "title": ""
+      }
+    },
+    {
+      "iso_3166_1": "ES",
+      "iso_639_1": "es",
+      "name": "Español",
+      "english_name": "Spanish",
+      "data": {
+        "homepage": "",
+        "overview": "Un joven sin ilusiones lucha contra su insomnio, consecuencia quizás de su hastío por su gris y rutinaria vida. En un viaje en avión conoce a Tyler Durden, un carismático vendedor de jabón que sostiene una filosofía muy particular: el perfeccionismo es cosa de gentes débiles; en cambio, la autodestrucción es lo único que hace que realmente la vida merezca la pena. Ambos deciden entonces formar un club secreto de lucha donde descargar sus frustaciones y su ira que tendrá un éxito arrollador.",
+        "runtime": 139,
+        "tagline": "Caos, travesuras y jabón",
+        "title": "El Club de la Lucha"
+      }
+    },
+    ...
+  ]
+}
+```

@@ -1,0 +1,106 @@
+---
+title: Recommendations
+description: Get a list of recommended movies for a specific movie.
+---
+ 
+This is based on the movie's popularity and user ratings.
+
+```typescript
+tmdb.movies.recommendations(params: MovieRecommendationsParams): Promise<MovieRecommendations>; 
+```
+
+## Parameters
+
+| Name      | Type   | Required | Description                                      |
+|-----------|--------|----------|--------------------------------------------------|
+| movie_id  | number         | ✅      | The ID of the movie.                             |
+| page   | number | ❌       | Page number of the results. Defaults to 1. |
+| language   | LanguageISO6391 | ❌       | Language for the response |
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-recommendations](https://developer.themoviedb.org/reference/movie-recommendations)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.recommendations({ movie_id: 550 });
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieRecommendations = PaginatedResponse<MovieResultItem>;
+```
+
+### Related Types
+
+```typescript
+export type PaginatedResponse<T> = {
+	page: number;
+	total_pages: number;
+	total_results: number;
+	results: T[];
+};
+
+export type MovieResultItem = {
+	backdrop_path: string;
+	id: number;
+	title: string;
+	original_title: string;
+	overview: string;
+	poster_path: string;
+	media_type: string;
+	adult: boolean;
+	original_language: string;
+	genre_ids: number[];
+	popularity: number;
+	release_date: string;
+	video: boolean;
+	vote_average: number;
+	vote_count: number;
+};
+
+export type MovieRecommendationsParams = {
+	movie_id: number;
+	page?: number;
+	language?: LanguageISO6391;
+};
+```
+
+## Example Response
+
+```json
+{
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/suaEOtk1N1sgg2MTM7oZd2cfVp3.jpg",
+      "id": 680,
+      "title": "Pulp Fiction",
+      "original_title": "Pulp Fiction",
+      "overview": "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.",
+      "poster_path": "/vQWk5YBFWF4bZaofAbv0tShwBvQ.jpg",
+      "media_type": "movie",
+      "original_language": "en",
+      "genre_ids": [
+        53,
+        80,
+        35
+      ],
+      "popularity": 19.0848,
+      "release_date": "1994-09-10",
+      "video": false,
+      "vote_average": 8.488,
+      "vote_count": 28799
+    },
+    ...
+  ],
+  "total_pages": 2,
+  "total_results": 40
+}
+```

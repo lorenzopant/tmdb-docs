@@ -1,0 +1,119 @@
+---
+title: Movie Lists
+description: The movieLists module provides access to curated and time-sensitive lists of movies from TMDB. These lists include "now playing", "popular", "top rated", and "upcoming" movies.
+
+---
+
+## Now Playing 
+
+`tmdb.movieLists.now_playing`
+Get a list of movies currently playing in theaters.
+
+```ts
+tmdb.movieLists.now_playing(language?: string, page?: number, region?: string): Promise<PaginatedResponse<MovieResultItem>>
+```
+
+<Note title="TMDB Reference" type="default">
+<p>[https://developer.themoviedb.org/reference/movie-now-playing-list](https://developer.themoviedb.org/reference/movie-now-playing-list)</p>
+</Note>
+
+---
+
+## Popular 
+`tmdb.movieLists.popular`
+
+Get a list of movies ordered by popularity.
+
+```ts
+tmdb.movieLists.popular(language?: string, page?: number, region?: string): Promise<PaginatedResponse<MovieResultItem>>
+```
+
+<Note title="TMDB Reference" type="default">
+<p>[https://developer.themoviedb.org/reference/movie-popular-list](https://developer.themoviedb.org/reference/movie-popular-list)</p>
+</Note>
+
+---
+
+## Top Rated
+`tmdb.movieLists.top_rated`
+
+Get a list of movies ordered by rating.
+
+```ts
+tmdb.movieLists.top_rated(language?: string, page?: number, region?: string): Promise<PaginatedResponse<MovieResultItem>>
+```
+
+<Note title="TMDB Reference" type="default">
+<p>[https://developer.themoviedb.org/reference/movie-top-rated-list](https://developer.themoviedb.org/reference/movie-top-rated-list)</p>
+</Note>
+
+---
+
+## Upcoming 
+`tmdb.movieLists.upcoming`
+
+Get a list of upcoming movies.
+
+```ts
+tmdb.movieLists.upcoming(language?: string, page?: number, region?: string): Promise<PaginatedResponse<MovieResultItem>>
+```
+
+
+<Note title="TMDB Reference" type="default">
+<p>[https://developer.themoviedb.org/reference/movie-upcoming-list](https://developer.themoviedb.org/reference/movie-upcoming-list)</p>
+</Note>
+
+---
+
+## Usage Example
+
+```ts
+const upcoming = await tmdb.movieLists.upcoming();
+console.log(upcoming.results.map(movie => movie.title));
+```
+
+
+## Parameters
+
+All the movie list methods make use of the same parameters:
+
+| Name       | Type     | Required | Description                          |
+|------------|----------|----------|--------------------------------------|
+| `language` | `string` | ❌       | Language of the results (default: `en-US`) |
+| `page`     | `number` | ❌       | Page number for pagination (default: 1)          |
+| `region`   | `string` | ❌       | ISO 3166-1 country code for region-specific results |
+
+## Types
+
+The following TypeScript types are used in the methods above:
+
+```ts
+type MovieResultItem = {
+  id: number;
+  title: string;
+  original_title: string;
+  release_date: string;
+  overview: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  vote_average: number;
+  vote_count: number;
+  popularity: number;
+  genre_ids: number[];
+  original_language: string;
+  adult: boolean;
+  video: boolean;
+};
+
+type PaginatedResponse<T> = {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  results: T[];
+};
+```
+
+These types are imported from the SDK and ensure fully typed responses for all movie list endpoints. You can import single types using
+```typescript
+import type { MovieResultItem } from '@lorenzopant/tmdb'
+```

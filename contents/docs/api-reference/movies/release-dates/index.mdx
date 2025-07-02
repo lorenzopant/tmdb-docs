@@ -1,0 +1,106 @@
+---
+title: Release Dates
+description: Get the release dates and certifications for a movie. For different countries and release types.
+---
+ 
+The release types and statuses used on TMDB are the following:
+
+| Type | Description           |
+|------|-----------------------|
+| 1    | Premiere              |
+| 2    | Theatrical (Limited)  |
+| 3    | Theatrical            |
+| 4    | Digital               |
+| 5    | Physical              |
+| 6    | TV                    |
+
+```typescript
+tmdb.movies.release_dates(params: MovieReleaseDatesParams): Promise<MovieReleaseDates>; 
+```
+
+## Parameters
+
+| Name      | Type   | Required | Description                                      |
+|-----------|--------|----------|--------------------------------------------------|
+| movie_id  | number         | ✅      | The ID of the movie.                             |
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-release-dates](https://developer.themoviedb.org/reference/movie-release-dates)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.release_dates({ movie_id: 550 });
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieReleaseDates = {
+	id: number;
+	results: MovieReleaseDateResult[];
+};
+```
+
+### Related Types
+
+```typescript
+export type MovieReleaseDateResult = {
+	iso_3166_1: string;
+	release_dates: MovieReleaseDate[];
+};
+
+export type MovieReleaseDate = {
+	certification: string;
+	iso_639_1: string;
+	release_date: string;
+	type: ReleaseType | number;
+	note: string;
+	descriptors: unknown[];
+};
+
+export type MovieReleaseDatesParams = {
+  movie_id: number;
+}
+```
+
+## Example Response
+
+```json
+{
+  "id": 550,
+  "results": [
+    {
+      "iso_3166_1": "AE",
+      "release_dates": [
+        {
+          "certification": "",
+          "descriptors": [],
+          "iso_639_1": "",
+          "note": "Blu-ray",
+          "release_date": "2009-11-23T00:00:00.000Z",
+          "type": 5
+        }
+      ]
+    },
+    {
+      "iso_3166_1": "AR",
+      "release_dates": [
+        {
+          "certification": "18",
+          "descriptors": [],
+          "iso_639_1": "",
+          "note": "",
+          "release_date": "1999-11-04T00:00:00.000Z",
+          "type": 3
+        }
+      ]
+    },
+    ...
+  ]
+}
+```

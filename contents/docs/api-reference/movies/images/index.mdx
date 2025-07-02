@@ -1,0 +1,116 @@
+---
+title: Credits
+description: Get the credits for a movie (e.g., crew, director, actors etc.).
+---
+ 
+```typescript
+tmdb.movies.credits(params: MovieCreditsParams): Promise<MovieCredits>; 
+```
+
+## Parameters
+
+| Name      | Type   | Required | Description                                      |
+|-----------|--------|----------|--------------------------------------------------|
+| movie_id  | number         | ✅      | The ID of the movie.                             |
+| language   | LanguageISO6391 | ❌       | Language for the response |
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-credits](https://developer.themoviedb.org/reference/movie-credits)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.credits({ movie_id: 550 });
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieCredits = {
+	id: number;
+	cast: Cast[];
+	crew: Crew[];
+};
+```
+
+### Related Types
+
+```typescript
+export type Cast = {
+	adult: boolean;
+	gender: number | null;
+	id: number;
+	known_for_department: string;
+	name: string;
+	original_name: string;
+	popularity: number;
+	profile_path?: string | null;
+	cast_id: number;
+	character: string;
+	credit_id: string;
+	order: number;
+};
+
+export type Crew = {
+	adult: boolean;
+	gender: number | null;
+	id: number;
+	known_for_department: string;
+	name: string;
+	original_name: string;
+	popularity: number;
+	profile_path?: string | null;
+	credit_id: string;
+	department: string;
+	job: string;
+};
+
+export type MovieCreditsParams = {
+	movie_id: number;
+	language?: LanguageISO6391;
+};
+```
+
+## Example Response
+
+```json
+{
+  "id": 550,
+  "cast": [
+    {
+      "adult": false,
+      "gender": 2,
+      "id": 819,
+      "known_for_department": "Acting",
+      "name": "Edward Norton",
+      "original_name": "Edward Norton",
+      "popularity": 4.7377,
+      "profile_path": "/8nytsqL59SFJTVYVrN72k6qkGgJ.jpg",
+      "cast_id": 4,
+      "character": "Narrator",
+      "credit_id": "52fe4250c3a36847f80149f3",
+      "order": 0
+    },
+    ...
+  ],
+  "crew": [
+    {
+      "adult": false,
+      "gender": 2,
+      "id": 51333,
+      "known_for_department": "Camera",
+      "name": "Claudio Miranda",
+      "original_name": "Claudio Miranda",
+      "popularity": 0.415,
+      "profile_path": "/yJIfY7owvD5oji9OzePUE77UEJA.jpg",
+      "credit_id": "60b99bb965686e0040417efd",
+      "department": "Lighting",
+      "job": "Gaffer"
+    },
+    ...
+  ]
+```

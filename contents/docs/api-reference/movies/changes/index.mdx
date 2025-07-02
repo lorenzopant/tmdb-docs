@@ -1,0 +1,109 @@
+---
+title: Changes
+description: Get the changes for a movie.
+---
+
+This is a list of all the changes that have been made to a movie. By default, only the last 24 hours are returned. You can query up to 14 days in a single query by using the start_date and end_date query parameters.
+ 
+```typescript
+tmdb.movies.changes(params: MovieChangesParams): Promise<MovieChanges>; 
+```
+
+## Parameters
+
+| Name      | Type   | Required | Description                                      |
+|-----------|--------|----------|--------------------------------------------------|
+| movie_id  | number         | ✅      | The ID of the movie.                             |
+| page   | number | ❌       | Page number of the results to return. Defaults to 1. |
+| start_date   | Date | ❌       | Optional start date for the changes. Format: YYYY-MM-DD. |
+| end_date   | Date | ❌       | Optional end date for the changes. Format: YYYY-MM-DD. |
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-changes](https://developer.themoviedb.org/reference/movie-changes)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.changes({ movie_id: 550 });
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieChanges = {
+  changes: Change[]
+};
+```
+
+### Related Types
+
+```typescript
+export type Change = {
+	key: string;
+	items: ChangeItem[];
+};
+
+export type ChangeItem = {
+	id: number;
+	action: string; // ** Indicates added, updated etc.
+	time: string;
+	iso_639_1: string;
+	iso_3166_1: string;
+	value: object;
+};
+
+export type MovieChangesParams = {
+	movie_id: number;
+	page?: number;
+	start_date?: string;
+	end_date?: string;
+};
+```
+
+## Example Response
+
+```json
+  "changes": [
+    {
+      "key": "images",
+      "items": [
+        {
+          "id": "685f5393223172b1899154ee",
+          "action": "added",
+          "time": "2025-06-28 02:29:39 UTC",
+          "iso_639_1": "",
+          "iso_3166_1": "",
+          "value": {
+            "poster": {
+              "file_path": "/rJaZIkHvjPfrw5TI2isMb4hbgsE.jpg"
+            }
+          }
+        },
+        {
+          "id": "685f53be2e73b07343228fa5",
+          "action": "updated",
+          "time": "2025-06-28 02:30:22 UTC",
+          "iso_639_1": "en",
+          "iso_3166_1": "",
+          "value": {
+            "poster": {
+              "file_path": "/rJaZIkHvjPfrw5TI2isMb4hbgsE.jpg",
+              "iso_639_1": "en"
+            }
+          },
+          "original_value": {
+            "poster": {
+              "file_path": "/rJaZIkHvjPfrw5TI2isMb4hbgsE.jpg",
+              "iso_639_1": null
+            }
+          }
+        },
+      ]
+    }
+  ]
+}
+```

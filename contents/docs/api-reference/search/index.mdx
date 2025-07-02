@@ -1,0 +1,104 @@
+---
+title: Search
+description: The search module allows you to perform keyword-based queries against TMDB's database. Currently, the SDK supports searching for movies using the `search.movies` method.
+---
+
+## Search Movies 
+
+`tmdb.search.movies`
+Search for movies by title, keyword, or phrase.
+
+```typescript
+tmdb.search.movies(options: {
+  query: string;
+  page?: number;
+  language?: string;
+  include_adult?: boolean;
+  region?: string;
+  primary_release_year?: string;
+  year?: string
+}): Promise<PaginatedResponse<MovieResultItem>>
+```
+
+### Parameters
+
+| Name                       | Type      | Required | Description                                           |
+|----------------------------|-----------|----------|-------------------------------------------------------|
+| `query`                    | `string`  | ✅       | Search query text                                     |
+| `include_adult`            | `boolean` | ❌       | Whether to include adult content (default: false)     |
+| `language`                 | `string`  | ❌       | Language code (default: `en-US`)                      |
+| `primary_release_year`     | `string`  | ❌       | Primary release year of the movie                     |
+| `page`                     | `number`  | ❌       | Page number (default: 1)                              |
+| `region`                   | `string`  | ❌       | Region code (ISO 3166-1)                              |
+| `year`                     | `string`  | ❌       | Release year of the movie                             |
+
+
+<Note title="TMDB Reference">
+[https://developer.themoviedb.org/reference/search-movie](https://developer.themoviedb.org/reference/search-movie)
+</Note>
+
+---
+
+### Example
+
+```ts
+const results = await tmdb.search.movies({ query: "Inception" });
+```
+
+### Response
+
+```ts
+{
+  page: 1,
+  results: [
+    {
+      id: 27205,
+      title: "Inception",
+      original_title: "Inception",
+      release_date: "2010-07-15",
+      poster_path: "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+      overview: "...",
+      vote_average: 8.4,
+      vote_count: 31000,
+      genre_ids: [28, 12, 878],
+      adult: false
+    }
+  ],
+  total_pages: 1,
+  total_results: 1
+}
+```
+
+---
+
+
+### Types
+```typescript
+type MovieResultItem = {
+	backdrop_path: string;
+	id: number;
+	title: string;
+	original_title: string;
+	overview: string;
+	poster_path: string;
+	media_type: string;
+	adult: boolean;
+	original_language: string;
+	genre_ids: number[];
+	popularity: number;
+	release_date: string;
+	video: boolean;
+	vote_average: number;
+	vote_count: number;
+};
+
+type PaginatedResponse<T> = {
+	page: number;
+	total_pages: number;
+	total_results: number;
+	results: T[];
+};
+```
+
+🚧 <br/>
+For more advanced querying (people, TV shows, collections), support is planned in future releases.

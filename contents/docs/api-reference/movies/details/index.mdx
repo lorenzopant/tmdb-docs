@@ -1,0 +1,124 @@
+---
+title: Details
+description: Fetch detailed information for a specific movie by its TMDB ID.
+---
+
+```typescript
+tmdb.movies.details(params: MovieDetailsParams): Promise<MovieDetails>; 
+```
+
+## Parameters
+
+| Name      | Type    | Required | Description            |
+|-----------|---------|----------|------------------------|
+| `movieId` | number  | ✅       | The TMDB movie ID      |
+| `language` | LanguageISO6391  | ❌       | The language to use for the response     |
+| `append_to_response` | string[]  | ❌       | A comma-spearated list of the fields to include in the response   |
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-details](https://developer.themoviedb.org/reference/movie-details)</p>
+</Note>
+
+## Example
+
+```ts
+const movie = await tmdb.movies.details({ movie_id: 550 });
+console.log(movie.title); // "Fight Club"
+```
+
+## Append To Response
+
+This method supports **Append To Response**. It's an easy and efficient way to append extra requests to any top level namespace.
+This makes it possible to make sub requests within the same namespace in a single HTTP request. Each request will get appended to the response as a new JSON object.
+
+In case of movie details the follwing options are possible:
+
+- `alternative_tiles`
+- `changes`
+- `credits`
+- `external_ids`
+- `images`
+- `keywords`
+- `recommendations`
+- `release_dates`
+- `reviews`
+- `similar`
+- `translations`
+- `videos`
+
+<Note title="Append To Response - Reference">
+    <p>[https://developer.themoviedb.org/docs/append-to-response](https://developer.themoviedb.org/docs/append-to-response)</p>
+</Note>
+
+### Example
+
+```ts
+const movie = await tmdb.movies.details({ movie_id: 550, append_to_response: ["reviews"] });
+console.log(movie.title); // "Fight Club"
+console.log(movie.reviews.results.map((r) => r.author)); // "List authors of all the movie reviews"
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieDetails = {
+	adult: boolean;
+	backdrop_path: string | null;
+	belongs_to_collection: Collection | null;
+	budget: number;
+	genres: Genre[];
+	homepage: string | null;
+	id: number;
+	imdb_id: string | null;
+	origin_country: string[];
+	original_language: string;
+	original_title: string;
+	overview: string | null;
+	popularity: number;
+	poster_path: string | null;
+	production_companies: ProductionCompany[];
+	production_countries: ProductionCountry[];
+	release_date: string; // ISO format (YYYY-MM-DD)
+	revenue: number;
+	runtime: number | null; // Some movies have no runtime set
+	spoken_languages: SpokenLanguage[];
+	status: string;
+	tagline: string | null;
+	title: string;
+	video: boolean;
+	vote_average: number;
+	vote_count: number;
+    // Optional append_to_response type
+};
+```
+
+### Other Types
+
+```typescript
+export type MovieDetailsParams = {
+	movie_id: number;
+	append_to_response?: MovieAppendToResponseNamespace[];
+	language?: LanguageISO6391;
+};
+
+export type MovieAppendableMap = {
+	alternative_titles: MovieAlternativeTitles;
+	changes: MovieChanges;
+	credits: MovieCredits;
+	external_ids: MovieExternalIDs;
+	images: MovieImages;
+	keywords: MovieKeywords;
+	recommendations: MovieRecommendations;
+	release_dates: MovieReleaseDates;
+	reviews: MovieReviews;
+	similar: MovieSimilar;
+	translations: MovieTranslations;
+	videos: MovieVideos;
+};
+
+export type MovieDetailsWithAppends<T extends readonly MovieAppendToResponseNamespace[]> = MovieDetails & {
+	[K in T[number]]: MovieAppendableMap[K];
+};
+```

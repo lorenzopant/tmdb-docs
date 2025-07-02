@@ -1,0 +1,119 @@
+---
+title: Watch Providers
+description: Get the list of streaming providers we have for a movie.
+---
+
+Powered by our partnership with JustWatch, you can query this method to get a list of the streaming/rental/purchase availabilities per country by provider.
+This is not going to return full deep links, but rather, it's just enough information to display what's available where.
+
+<Note title="JustWatch Attribution Required" type="warning">
+Following [TMDB Guidelines](https://developer.themoviedb.org/reference/movie-watch-providers): In order to use this data you must attribute the source of the data as JustWatch. If we find any usage not complying with these terms we will revoke access to the API.
+</Note>
+
+```typescript
+tmdb.movies.watch_providers(params: MovieWathProvidersParams): Promise<MovieWatchProvider>; 
+```
+
+## Parameters
+
+| Name      | Type   | Required | Description                                      |
+|-----------|--------|----------|--------------------------------------------------|
+| movie_id  | number         | ✅      | The ID of the movie.                             |
+
+<Note title="Reference">
+    <p>[https://developer.themoviedb.org/reference/movie-watch-providers](https://developer.themoviedb.org/reference/movie-watch-providers)</p>
+</Note>
+
+
+## Example
+
+```typescript
+const result = await tmdb.movie.watch_providers({ movie_id: 550 });
+```
+
+## Types
+
+### Response Type
+
+```typescript
+export type MovieWatchProvider = {
+	id: number;
+	results: Record<CountryISO3166_1, WatchProvider[]>;
+};
+```
+
+### Related Types
+
+```typescript
+export type WatchProvider = {
+	link: string;
+	flatrate: WatchProviderItem[];
+	rent: WatchProviderItem[];
+	buy: WatchProviderItem[];
+};
+
+export type WatchProviderItem = {
+	logo_path: string;
+	provider_id: number;
+	provider_name: string;
+	display_priority: number;
+};
+
+export type MovieWatchProvidersParams = {
+  movie_id: number;
+}
+```
+
+## Example Response
+
+```json
+{
+  "id": 550,
+  "results": {
+    "AE": {
+      "link": "https://www.themoviedb.org/movie/550-fight-club/watch?locale=AE",
+      "rent": [
+        {
+          "logo_path": "/9ghgSC0MA082EL6HLCW3GalykFD.jpg",
+          "provider_id": 2,
+          "provider_name": "Apple TV",
+          "display_priority": 1
+        },
+        {
+          "logo_path": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg",
+          "provider_id": 3,
+          "provider_name": "Google Play Movies",
+          "display_priority": 3
+        }
+      ],
+      "buy": [
+        {
+          "logo_path": "/9ghgSC0MA082EL6HLCW3GalykFD.jpg",
+          "provider_id": 2,
+          "provider_name": "Apple TV",
+          "display_priority": 1
+        },
+        {
+          "logo_path": "/8z7rC8uIDaTM91X0ZfkRf04ydj2.jpg",
+          "provider_id": 3,
+          "provider_name": "Google Play Movies",
+          "display_priority": 3
+        }
+      ]
+    },
+    "AL": {
+      "link": "https://www.themoviedb.org/movie/550-fight-club/watch?locale=AL",
+      "buy": [
+        {
+          "logo_path": "/bZvc9dXrXNly7cA0V4D9pR8yJwm.jpg",
+          "provider_id": 35,
+          "provider_name": "Rakuten TV",
+          "display_priority": 8
+        }
+      ]
+    },
+    ...
+    // Each region is a key
+  }
+}
+```
