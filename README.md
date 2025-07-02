@@ -1,4 +1,4 @@
-# TMDB API TS Next.js App
+# @lorenzopant/tmdb Documentation
 
 This project is a [Next.js](https://nextjs.org) application that provides a documentation and demo interface for the `@lorenzopant/tmdb` TypeScript wrapper. It features interactive docs and code examples, all styled with Tailwind CSS and optimized for developer experience.
 
