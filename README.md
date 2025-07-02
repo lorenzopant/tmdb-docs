@@ -1,8 +1,11 @@
 # @lorenzopant/tmdb Documentation
 
-This project is a [Next.js](https://nextjs.org) application that provides a documentation and demo interface for the `@lorenzopant/tmdb` TypeScript wrapper. It features interactive docs and code examples, all styled with Tailwind CSS and optimized for developer experience.
+This project is a [Next.js](https://nextjs.org) application that provides a documentation and demo interface for the `@lorenzopant/tmdb` TypeScript wrapper. 
+
+[@lorenzopant/tmdb](https://github.com/lorenzopant/tmdb)
 
 This documentation project is built starting from the [Aria Docs](https://ariadocs.vercel.app/) template, which provides a solid foundation for building documentation sites with MDX support.
+It features interactive docs and code examples, all styled with Tailwind CSS and optimized for developer experience.
 
 - Aria Docs repo: [https://github.com/nisabmohd/Aria-Docs](https://github.com/nisabmohd/Aria-Docs)
 
