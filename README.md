@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TMDB API TS Next.js App
+
+This project is a [Next.js](https://nextjs.org) application that provides a documentation and demo interface for the `@lorenzopant/tmdb` TypeScript wrapper. It features interactive docs and code examples, all styled with Tailwind CSS and optimized for developer experience.
+
+This documentation project is built starting from the [Aria Docs](https://ariadocs.vercel.app/) template, which provides a solid foundation for building documentation sites with MDX support.
+
+- Aria Docs repo: [https://github.com/nisabmohd/Aria-Docs](https://github.com/nisabmohd/Aria-Docs)
+
+## Features
+
+- **Interactive Documentation**: Browse and search TMDB API endpoints with live code examples.
+- **MDX Support**: Write documentation and blog posts in MDX with custom React components.
+- **Theme Toggle**: Light/dark mode support.
+- **Beautiful UI**: Built with Tailwind CSS and custom components.
 
 ## Getting Started
 
-First, run the development server:
+1. **Install dependencies:**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   ```bash
+   pnpm install
+   # or
+   npm install
+   # or
+   yarn install
+   # or
+   bun install
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Run the development server:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ```bash
+   pnpm dev
+   # or
+   npm run dev
+   # or
+   yarn dev
+   # or
+   bun dev
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Open your browser:**
+
+   Visit [http://localhost:3000](http://localhost:3000) to view the app.
+
+## Project Structure
+
+- `app/` — Next.js app directory (routing, layouts, pages)
+- `components/` — UI and MDX components
+- `contents/` — MDX docs and blog content
+- `lib/` — Utility functions and API wrappers
+- `styles/` — Tailwind and global CSS
+
+## Custom Components
+
+- `InstallCommand` — Interactive package manager command selector
+- `Note`, `Files`, etc. — Used in MDX for rich documentation
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js Documentation](https://nextjs.org/docs)
+- [TMDB API Docs](https://developer.themoviedb.org/docs)
+- [@lorenzopant/tmdb GitHub](https://github.com/lorenzopant/tmdb)
+- [Aria Docs GitHub](https://github.com/nisabmohd/Aria-Docs)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License.
